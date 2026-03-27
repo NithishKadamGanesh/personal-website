@@ -17,11 +17,17 @@ const siteData = {
       "Open to software engineering roles across backend, product, cloud, and platform teams.",
   },
   metrics: [
-    { value: 3.933, label: "MS GPA", decimals: 3 },
-    { value: 13, label: "GitHub repos", decimals: 0 },
+    { value: "🥉", label: "State amateur boxing bronze medal", isText: true },
+    { value: 140, label: "Arcanum registrations and 90+ concurrent users", decimals: 0, suffix: "+" },
     { value: 2, label: "Work awards", decimals: 0 },
     { value: 794, label: "AWS score", decimals: 0 },
   ],
+  arcanumSpotlight: {
+    eyebrow: "Arcanum Highlight",
+    title: "140+ registrations, 90+ active concurrent users, and 12K+ submissions in a 10-hour live puzzle event.",
+    summary:
+      "Built Arcanum as a hosted Northeastern-wide puzzle platform with immersive frontend gameplay, FastAPI backend services, vector-based answer feedback, and a $250 first-place prize pool.",
+  },
   ticker: [
     "Java",
     "Spring Boot",
@@ -31,6 +37,7 @@ const siteData = {
     "Node.js",
     "React",
     "Swift",
+    "FastAPI",
     "AWS",
     "Docker",
     "Kubernetes",
@@ -40,35 +47,47 @@ const siteData = {
     "Redis",
     "PostgreSQL",
     "MongoDB",
+    "Sentence Transformers",
+    "RapidFuzz",
     "Microservices",
     "Distributed Systems",
   ],
   projects: [
     {
-      title: "CityDiaries",
-      type: "Full-Stack",
+      title: "Arcanum",
+      type: "Full-Stack Platform",
       summary:
-        "Travel diary app for sharing city hotspots, photos, reviews, and comments.",
+        "A university-wide puzzle platform with 140+ registrations, 90+ active concurrent players, and 12K+ answer submissions across a 10-hour event with a $250 first-place prize.",
+      stack: "React - Vite - Tailwind CSS - FastAPI - SQLAlchemy - PostgreSQL",
+      tools: ["FastAPI", "SQLAlchemy", "PostgreSQL", "Sentence Transformers"],
+      theme: "theme-amber",
+      layout: "media",
+      image: "./arcanum-logo.png",
+      link: "https://github.com/Arcanum-CTF",
+    },
+    {
+      title: "CityDiaries",
+      type: "Website App",
+      summary:
+        "Travel diary app for sharing city hotspots, photos, reviews, comments, and memorable places people want to revisit.",
       stack: "MongoDB - EJS - Express.js - Node.js",
+      tools: ["MongoDB", "EJS", "Express.js", "Node.js"],
       theme: "theme-blue",
+      layout: "media",
+      image: "./citydiaries.png",
       link: "https://github.com/NithishKadamGanesh/CityDiaries",
     },
     {
       title: "Fudget",
-      type: "iOS + ML",
+      type: "Mobile App",
       summary:
-        "Recipe app that recognizes ingredients via ML and recommends recipes.",
+        "Recipe recommendation app that recognizes ingredients through ML and turns what you already have into practical cooking suggestions.",
       stack: "Swift - CreateML - REST APIs",
+      tools: ["Swift", "CreateML", "REST APIs"],
       theme: "theme-green",
+      layout: "media",
+      image: "./fudget.png",
       link: "https://github.com/NithishKadamGanesh/Fudget",
-    },
-    {
-      title: "B-C_Store",
-      type: "Java",
-      summary: "Java-based store project showing core programming range.",
-      stack: "Java",
-      theme: "theme-amber",
-      link: "https://github.com/NithishKadamGanesh/B-C_Store",
     },
   ],
   skillCategories: [
@@ -154,7 +173,7 @@ const siteData = {
     degree: "M.S. Computer Science",
     period: "Sep 2024-Aug 2026",
     text:
-      "GPA 3.933. Coursework includes Algorithms, AI, Database Systems, Computer Systems, NLP, and Scalable Distributed Systems.",
+      "GPA 3.93. Coursework includes Algorithms, AI, Database Systems, Computer Systems, NLP, and Scalable Distributed Systems.",
   },
   funFacts: [
     { emoji: "\u26BD", text: "Chelsea FC die-hard" },
@@ -165,7 +184,8 @@ const siteData = {
   ],
   twinPrompts: [
     "Summarize your GitHub profile",
-    "What are your pinned projects?",
+    "What are your top projects?",
+    "Tell me about Arcanum",
     "What did you do at Manhattan Associates?",
     "Tell me a fun fact about yourself",
   ],
@@ -182,6 +202,23 @@ const tickerHTML = [...d.ticker, ...d.ticker].map((item) => `<span>${item}</span
 const funHTML = [...d.funFacts, ...d.funFacts, ...d.funFacts]
   .map((fact) => `<span class="fun-chip"><span class="fun-emoji">${fact.emoji}</span>${fact.text}</span>`)
   .join("");
+const icons = {
+  email: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2 8 5 8-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `,
+  linkedin: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6.94 8.5H3.56V20h3.38V8.5Zm.22-3.56A1.96 1.96 0 1 0 3.24 5a1.96 1.96 0 0 0 3.92-.06ZM20.44 13.02c0-3.46-1.85-5.07-4.32-5.07-1.99 0-2.88 1.1-3.38 1.87V8.5H9.37c.04.88 0 11.5 0 11.5h3.37v-6.42c0-.34.02-.68.12-.92.27-.68.87-1.38 1.88-1.38 1.32 0 1.85 1 1.85 2.47V20h3.37v-6.98Z" fill="currentColor"/>
+    </svg>
+  `,
+  github: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2C6.48 2 2 6.6 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.62-3.37-1.2-3.37-1.2-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .08 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.15-4.56-5.12 0-1.13.39-2.06 1.03-2.79-.11-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.06A9.3 9.3 0 0 1 12 6.84c.85 0 1.7.12 2.5.35 1.9-1.34 2.74-1.06 2.74-1.06.55 1.41.21 2.46.1 2.72.64.73 1.03 1.66 1.03 2.79 0 3.98-2.34 4.85-4.57 5.11.36.32.68.94.68 1.89 0 1.36-.01 2.45-.01 2.79 0 .27.18.6.69.49A10.27 10.27 0 0 0 22 12.26C22 6.6 17.52 2 12 2Z" fill="currentColor"/>
+    </svg>
+  `,
+};
 
 const twinReply = (question) => {
   const q = question.toLowerCase();
@@ -190,10 +227,10 @@ const twinReply = (question) => {
     return "Hi, I'm Nithish. I'm an MS CS student at Northeastern, an ex-Manhattan Associates engineer, AWS Certified, and someone who enjoys building backend systems, full-stack products, and projects you can actually explore on GitHub.";
   }
   if (containsAny(q, ["background", "summary", "career", "github"])) {
-    return "My background combines graduate CS work at Northeastern with production engineering at Manhattan Associates and a full-stack internship at Wintergreen. Projects like CityDiaries and Fudget show my web, mobile, and backend range.";
+    return "My background combines graduate CS work at Northeastern with production engineering at Manhattan Associates and a full-stack internship at Wintergreen. Projects like CityDiaries, Fudget, and Arcanum show my web, mobile, backend, and interactive product range.";
   }
   if (containsAny(q, ["northeastern", "education", "gpa", "course", "study"])) {
-    return "I'm pursuing an M.S. in Computer Science at Northeastern University with a 3.933 GPA. My coursework includes Algorithms, AI, Database Systems, Computer Systems, NLP, and Scalable Distributed Systems.";
+    return "I'm pursuing an M.S. in Computer Science at Northeastern University with a 3.93 GPA. My coursework includes Algorithms, AI, Database Systems, Computer Systems, NLP, and Scalable Distributed Systems.";
   }
   if (containsAny(q, ["manhattan", "warehouse", "wms", "software engineer"])) {
     return "At Manhattan Associates, I worked as a Software Engineer from September 2021 to November 2023. I built distributed messaging and WMS enhancements for global clients, and I was recognized with two company awards.";
@@ -204,8 +241,11 @@ const twinReply = (question) => {
   if (containsAny(q, ["aws", "certification", "cloud", "architect"])) {
     return "I'm AWS Certified Solutions Architect - Associate, and I scored 794 on the exam. It reflects my interest in secure, resilient, high-performing, and cost-optimized cloud design.";
   }
-  if (containsAny(q, ["project", "citydiaries", "fudget", "b-c_store", "pinned"])) {
-    return "My pinned work includes CityDiaries, Fudget, and B-C_Store. Together they show full-stack web development, iOS and ML experimentation, and core Java programming range.";
+  if (containsAny(q, ["project", "citydiaries", "fudget", "arcanum", "pinned", "top projects"])) {
+    return "The three projects I want to feature most are CityDiaries, Fudget, and Arcanum. CityDiaries shows full-stack web development, Fudget highlights iOS and ML experimentation, and Arcanum is a richer full-stack platform with an immersive frontend plus backend support for authentication, submissions, and leaderboard flows.";
+  }
+  if (containsAny(q, ["arcanum", "sentence transformer", "vector", "distance", "puzzle platform", "ctf"])) {
+    return "Arcanum is a hosted Northeastern puzzle platform I worked on across both frontend and backend. It handled 140+ registrations, 90+ active concurrent users, and 12K+ submissions in about 10 hours. The frontend used React, Vite, Tailwind CSS, React Router, Axios, and Three.js-style immersive scenes for ten trials, while the backend used FastAPI, SQLAlchemy, Alembic, PostgreSQL, JWT auth, OTP verification, rate limiting, leaderboards, hint systems, and special interaction endpoints. One of the most interesting backend pieces was the answer-feedback layer, which used sentence-transformer embeddings, a vector distance calculator, and RapidFuzz to tell players whether they were very close, warm, or cold when they submitted incorrect answers.";
   }
   if (containsAny(q, ["award", "recognition"])) {
     return "I received Above & Beyond and Star of the Quarter at Manhattan Associates. Those recognitions reflect production impact and engineering trust.";
@@ -244,16 +284,15 @@ app.innerHTML = `
       <div class="hero-cta">
         <a class="cta cta-primary magnetic" href="mailto:${d.profile.email}">Email Me</a>
         <a class="cta cta-secondary magnetic" href="./docs/Resume.pdf">Resume</a>
-        <a class="cta cta-secondary magnetic" href="${d.profile.github}" target="_blank" rel="noreferrer">GitHub</a>
       </div>
       <div class="hero-meta">
         <span>${d.profile.location}</span>
         <span>${d.profile.availability}</span>
       </div>
       <div class="profile-links">
-        <a class="profile-link" href="${d.profile.linkedin}" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="profile-link" href="${d.profile.x}" target="_blank" rel="noreferrer">X</a>
-        <a class="profile-link" href="${d.profile.github}" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="profile-link icon-link" href="mailto:${d.profile.email}" aria-label="Email" title="Email">${icons.email}</a>
+        <a class="profile-link icon-link" href="${d.profile.linkedin}" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">${icons.linkedin}</a>
+        <a class="profile-link icon-link" href="${d.profile.github}" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">${icons.github}</a>
       </div>
     </div>
 
@@ -264,7 +303,7 @@ app.innerHTML = `
         <div class="portrait-glow"></div>
         <img src="${d.profile.photo}" alt="Nithish" />
       </article>
-      <div class="float-card top-card tilt-card"><span>Graduate GPA</span><strong>3.933</strong></div>
+      <div class="float-card top-card tilt-card"><span>Graduate GPA</span><strong>3.93</strong></div>
       <div class="float-card mid-card tilt-card"><span>AWS Certified</span><strong>Solutions Architect</strong></div>
       <div class="float-card low-card tilt-card"><span>Recognition</span><strong>2 Manhattan awards</strong></div>
     </div>
@@ -275,7 +314,11 @@ app.innerHTML = `
       .map(
         (metric) => `
           <div class="metric-pill">
-            <strong><span class="counter" data-target="${metric.value}" data-decimals="${metric.decimals}">0</span></strong>
+            <strong>${
+              metric.isText
+                ? `<span class="metric-text">${metric.value}</span>`
+                : `<span class="counter" data-target="${metric.value}" data-decimals="${metric.decimals}" data-prefix="${metric.prefix || ""}" data-suffix="${metric.suffix || ""}">0</span>`
+            }</strong>
             <span>${metric.label}</span>
           </div>
         `
@@ -291,18 +334,54 @@ app.innerHTML = `
         <div class="eyebrow">Featured</div>
         <h2>What I've built.</h2>
       </div>
-      <p>Pinned GitHub projects that show web, mobile, and backend range.</p>
+      <p>Three projects that best represent my range: full-stack web, iOS + ML, and a campus-scale puzzle platform.</p>
     </div>
+    <article class="project-spotlight">
+      <div class="project-spotlight-eyebrow">${d.arcanumSpotlight.eyebrow}</div>
+      <h3>${d.arcanumSpotlight.title}</h3>
+      <p>${d.arcanumSpotlight.summary}</p>
+    </article>
     <div class="showcase-grid">
       ${d.projects
         .map(
           (project) => `
             <a class="showcase-card tilt-card ${project.theme}" href="${project.link}" ${linkAttrs(project.link)}>
               <div class="showcase-noise"></div>
-              <div class="showcase-type">${project.type}</div>
-              <h3>${project.title}</h3>
-              <p>${project.summary}</p>
-              <div class="showcase-stack">${project.stack}</div>
+              ${
+                project.layout === "media"
+                  ? `
+                    <div class="showcase-type">${project.type}</div>
+                    <h3>${project.title}</h3>
+                    <p>${project.summary}</p>
+                    <div class="showcase-media-frame">
+                      ${
+                        project.title === "CityDiaries"
+                          ? `
+                            <div class="device-shell monitor-shell">
+                              <img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" />
+                              <div class="monitor-stand"></div>
+                            </div>
+                          `
+                          : project.title === "Fudget"
+                            ? `
+                              <div class="device-shell phone-shell">
+                                <img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" />
+                              </div>
+                            `
+                            : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
+                      }
+                    </div>
+                    <div class="showcase-tool-row">
+                      ${(project.tools || []).map((tool) => `<span class="showcase-tool">${tool}</span>`).join("")}
+                    </div>
+                  `
+                  : `
+                    <div class="showcase-type">${project.type}</div>
+                    <h3>${project.title}</h3>
+                    <p>${project.summary}</p>
+                    <div class="showcase-stack">${project.stack}</div>
+                  `
+              }
             </a>
           `
         )
@@ -523,20 +602,22 @@ app.innerHTML = `
         <h2>Let's talk.</h2>
       </div>
     </div>
-    <div class="contact-grid">
-      <a class="contact-tile" href="mailto:${d.profile.email}">${d.profile.email}</a>
-      <a class="contact-tile" href="tel:+16174156651">${d.profile.phone}</a>
-      <a class="contact-tile" href="${d.profile.linkedin}" target="_blank" rel="noreferrer">LinkedIn</a>
-      <a class="contact-tile" href="${d.profile.x}" target="_blank" rel="noreferrer">X</a>
-      <a class="contact-tile" href="${d.profile.github}" target="_blank" rel="noreferrer">GitHub</a>
+    <div class="contact-logo-row">
+      <a class="contact-logo" href="mailto:${d.profile.email}" aria-label="Email" title="${d.profile.email}">
+        ${icons.email}
+      </a>
+      <a class="contact-logo" href="${d.profile.linkedin}" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
+        ${icons.linkedin}
+      </a>
+      <a class="contact-logo" href="${d.profile.github}" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
+        ${icons.github}
+      </a>
     </div>
-    <p class="work-auth">${d.workAuth}</p>
   </section>
 
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="footer-brand">Nithish</span>
-      <span class="footer-note">Built with vanilla JS</span>
       <span class="footer-copy">© ${new Date().getFullYear()}</span>
     </div>
   </footer>
@@ -545,10 +626,10 @@ app.innerHTML = `
 const typedEl = document.getElementById("typedTarget");
 if (typedEl) {
   const phrases = [
-    d.profile.role,
+    "Graduate software engineer.",
     "Backend systems at scale.",
     "AWS Certified Architect.",
-    "Northeastern CS - 3.933 GPA",
+    "Northeastern CS - 3.93 GPA",
   ];
   let phraseIndex = 0;
   let charIndex = 0;
@@ -628,12 +709,18 @@ if (canvas) {
 const animateCounter = (element) => {
   const target = parseFloat(element.dataset.target);
   const decimals = parseInt(element.dataset.decimals, 10) || 0;
+  const prefix = element.dataset.prefix || "";
+  const suffix = element.dataset.suffix || "";
   const duration = 1600;
   const start = performance.now();
 
   const tick = (now) => {
     const progress = Math.min((now - start) / duration, 1);
-    element.textContent = (progress * (2 - progress) * target).toFixed(decimals);
+    const value = progress * (2 - progress) * target;
+    element.textContent = `${prefix}${value.toLocaleString(undefined, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })}${suffix}`;
     if (progress < 1) requestAnimationFrame(tick);
   };
 
