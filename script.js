@@ -5,8 +5,8 @@ const siteData = {
     role: "Graduate engineer shipping practical products and backend systems",
     tagline:
       "MS in Computer Science at Northeastern, ex-Manhattan Associates engineer, AWS Certified, and builder of project pages that feel as polished as the products behind them.",
-    logo: "./Logo.png",
-    photo: "./photo.png",
+    logo: "/Logo.png",
+    photo: "/photo.png",
     location: "Boston, MA",
     email: "nithishkadam@gmail.com",
     phone: "(617) 415-6651",
@@ -62,7 +62,7 @@ const siteData = {
       tools: ["FastAPI", "SQLAlchemy", "PostgreSQL", "Sentence Transformers"],
       theme: "theme-amber",
       layout: "media",
-      image: "./arcanum-logo.png",
+      image: "/arcanum-logo.png",
       link: "https://github.com/Arcanum-CTF",
     },
     {
@@ -74,7 +74,7 @@ const siteData = {
       tools: ["MongoDB", "EJS", "Express.js", "Node.js"],
       theme: "theme-blue",
       layout: "media",
-      image: "./citydiaries.png",
+      image: "/citydiaries.png",
       link: "https://github.com/NithishKadamGanesh/CityDiaries",
     },
     {
@@ -86,7 +86,7 @@ const siteData = {
       tools: ["Swift", "CreateML", "REST APIs"],
       theme: "theme-green",
       layout: "media",
-      image: "./fudget.png",
+      image: "/fudget.png",
       link: "https://github.com/NithishKadamGanesh/Fudget",
     },
   ],
@@ -113,8 +113,8 @@ const siteData = {
     },
   ],
   awards: [
-    { title: "Above & Beyond", date: "Apr 2022", image: "./above&Beyond.jpg" },
-    { title: "Star of the Quarter", date: "Jan 2023", image: "./starOfTheQuarter.jpg" },
+    { title: "Above & Beyond", date: "Apr 2022", image: "/above&Beyond.jpg" },
+    { title: "Star of the Quarter", date: "Jan 2023", image: "/starOfTheQuarter.jpg" },
   ],
   experience: [
     {
@@ -140,13 +140,13 @@ const siteData = {
     },
   ],
   docs: [
-    { label: "Resume", href: "./docs/Resume.pdf" },
-    { label: "AWS Cert", href: "./docs/AWS%20Certified%20Solutions%20Architect%20-%20Associate.pdf" },
-    { label: "Transcript", href: "./docs/Unofficial_Academic_Transcript%20(1).pdf" },
-    { label: "Cover Letter", href: "./docs/CoverLetter.pdf" },
-    { label: "Brunda LOR", href: "./docs/Brunda_LOR.pdf" },
-    { label: "Maneesh LOR", href: "./docs/Maneesh-LOR.pdf" },
-    { label: "Niranjan LOR", href: "./docs/Niranjan_LOR.pdf" },
+    { label: "Resume", href: "/docs/Resume.pdf" },
+    { label: "AWS Cert", href: "/docs/AWS%20Certified%20Solutions%20Architect%20-%20Associate.pdf" },
+    { label: "Transcript", href: "/docs/Unofficial_Academic_Transcript%20(1).pdf" },
+    { label: "Cover Letter", href: "/docs/CoverLetter.pdf" },
+    { label: "Brunda LOR", href: "/docs/Brunda_LOR.pdf" },
+    { label: "Maneesh LOR", href: "/docs/Maneesh-LOR.pdf" },
+    { label: "Niranjan LOR", href: "/docs/Niranjan_LOR.pdf" },
   ],
   endorsements: [
     {
@@ -283,7 +283,7 @@ app.innerHTML = `
       <p class="hero-tagline">${d.profile.tagline}</p>
       <div class="hero-cta">
         <a class="cta cta-primary magnetic" href="mailto:${d.profile.email}">Email Me</a>
-        <a class="cta cta-secondary magnetic" href="./docs/Resume.pdf">Resume</a>
+        <a class="cta cta-secondary magnetic" href="/docs/Resume.pdf">Resume</a>
       </div>
       <div class="hero-meta">
         <span>${d.profile.location}</span>
