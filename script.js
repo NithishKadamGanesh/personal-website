@@ -479,14 +479,20 @@ app.innerHTML = `
             <div class="mini-awards side-by-side-awards">
               ${d.awards
                 .map(
-                  (award) => `
-                    <div class="mini-award">
+                  (award, index) => `
+                    <button
+                      class="mini-award"
+                      type="button"
+                      data-certificate-index="${index}"
+                      aria-label="View ${award.title} certificate"
+                    >
                       <img class="mini-award-image" src="${award.image}" alt="${award.title}" />
                       <div>
                         <strong>${award.title}</strong>
                         <p>${award.date}</p>
+                        <span class="mini-award-hint">View certificate</span>
                       </div>
-                    </div>
+                    </button>
                   `
                 )
                 .join("")}
@@ -614,6 +620,26 @@ app.innerHTML = `
       </a>
     </div>
   </section>
+
+  <div class="certificate-lightbox" id="certificateLightbox" role="dialog" aria-modal="true" aria-labelledby="certificateLightboxTitle" hidden>
+    <button class="certificate-backdrop" type="button" data-certificate-close aria-label="Close certificate preview"></button>
+    <article class="certificate-modal">
+      <div class="certificate-modal-head">
+        <div>
+          <div class="bento-label amber">Certificate Preview</div>
+          <h3 id="certificateLightboxTitle">Certificate</h3>
+          <p id="certificateLightboxDate"></p>
+        </div>
+        <div class="certificate-actions">
+          <a class="certificate-open-link" id="certificateLightboxOpen" href="/" target="_blank" rel="noreferrer">Open original</a>
+          <button class="certificate-close" type="button" data-certificate-close>Close</button>
+        </div>
+      </div>
+      <div class="certificate-image-frame">
+        <img id="certificateLightboxImage" src="" alt="" />
+      </div>
+    </article>
+  </div>
 
   <footer class="site-footer">
     <div class="footer-inner">
@@ -761,6 +787,13 @@ const docPreviewButtons = document.querySelectorAll(".doc-preview-chip");
 const docPreviewFrame = document.querySelector("#docPreviewFrame");
 const docPreviewTitle = document.querySelector("#docPreviewTitle");
 const docPreviewOpen = document.querySelector("#docPreviewOpen");
+const certificateButtons = document.querySelectorAll("[data-certificate-index]");
+const certificateLightbox = document.querySelector("#certificateLightbox");
+const certificateImage = document.querySelector("#certificateLightboxImage");
+const certificateTitle = document.querySelector("#certificateLightboxTitle");
+const certificateDate = document.querySelector("#certificateLightboxDate");
+const certificateOpen = document.querySelector("#certificateLightboxOpen");
+const certificateCloseButtons = document.querySelectorAll("[data-certificate-close]");
 
 fullTabButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -775,6 +808,42 @@ fullTabButtons.forEach((button) => {
     button.classList.add("active");
     button.setAttribute("aria-selected", "true");
   });
+});
+
+const closeCertificateLightbox = () => {
+  if (!certificateLightbox) return;
+  certificateLightbox.hidden = true;
+  document.body.classList.remove("lightbox-open");
+};
+
+const openCertificateLightbox = (award) => {
+  if (!award || !certificateLightbox) return;
+  if (certificateImage) {
+    certificateImage.src = award.image;
+    certificateImage.alt = `${award.title} certificate`;
+  }
+  if (certificateTitle) certificateTitle.textContent = award.title;
+  if (certificateDate) certificateDate.textContent = award.date;
+  if (certificateOpen) certificateOpen.href = award.image;
+  certificateLightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+  certificateLightbox.querySelector(".certificate-close")?.focus();
+};
+
+certificateButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    openCertificateLightbox(d.awards[Number(button.dataset.certificateIndex)]);
+  });
+});
+
+certificateCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeCertificateLightbox);
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && certificateLightbox && !certificateLightbox.hidden) {
+    closeCertificateLightbox();
+  }
 });
 
 docPreviewButtons.forEach((button) => {
