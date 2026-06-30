@@ -63,7 +63,10 @@ const siteData = {
       theme: "theme-amber",
       layout: "media",
       image: "/arcanum-logo.png",
-      link: "https://github.com/Arcanum-CTF",
+      links: [
+        { label: "GitHub", href: "https://github.com/Arcanum-CTF" },
+        { label: "Live Site", href: "https://arcanumverse.org/" },
+      ],
     },
     {
       title: "CityDiaries",
@@ -75,7 +78,10 @@ const siteData = {
       theme: "theme-blue",
       layout: "media",
       image: "/citydiaries.png",
-      link: "https://github.com/NithishKadamGanesh/CityDiaries",
+      links: [
+        { label: "Live Site", href: "https://citydiaries.onrender.com" },
+        { label: "GitHub", href: "https://github.com/NithishKadamGanesh/CityDiaries" },
+      ],
     },
     {
       title: "Fudget",
@@ -88,6 +94,19 @@ const siteData = {
       layout: "media",
       image: "/fudget.png",
       link: "https://github.com/NithishKadamGanesh/Fudget",
+    },
+    {
+      title: "AlphaWealth",
+      type: "Infrastructure / Platform",
+      summary:
+        "Self-hosted personal finance OS — 14 Docker-composed microservices, React UI, Java/Python/C++ backends, and an on-device GPU AI engine for investment intelligence.",
+      stack: "React - Java - Python - C++ - Docker",
+      tools: ["React", "Java", "Python", "C++", "Docker"],
+      theme: "theme-cyan",
+      layout: "default",
+      links: [
+        { label: "GitHub", href: "https://github.com/NithishKadamGanesh/AlphaWealth" },
+      ],
     },
   ],
   skillCategories: [
@@ -343,48 +362,43 @@ app.innerHTML = `
     </article>
     <div class="showcase-grid">
       ${d.projects
-        .map(
-          (project) => `
-            <a class="showcase-card tilt-card ${project.theme}" href="${project.link}" ${linkAttrs(project.link)}>
-              <div class="showcase-noise"></div>
-              ${
-                project.layout === "media"
-                  ? `
-                    <div class="showcase-type">${project.type}</div>
-                    <h3>${project.title}</h3>
-                    <p>${project.summary}</p>
-                    <div class="showcase-media-frame">
-                      ${
-                        project.title === "CityDiaries"
-                          ? `
-                            <div class="device-shell monitor-shell">
-                              <img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" />
-                              <div class="monitor-stand"></div>
-                            </div>
-                          `
-                          : project.title === "Fudget"
-                            ? `
-                              <div class="device-shell phone-shell">
-                                <img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" />
-                              </div>
-                            `
-                            : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
-                      }
-                    </div>
-                    <div class="showcase-tool-row">
-                      ${(project.tools || []).map((tool) => `<span class="showcase-tool">${tool}</span>`).join("")}
-                    </div>
-                  `
-                  : `
-                    <div class="showcase-type">${project.type}</div>
-                    <h3>${project.title}</h3>
-                    <p>${project.summary}</p>
-                    <div class="showcase-stack">${project.stack}</div>
-                  `
-              }
-            </a>
-          `
-        )
+        .map((project) => {
+          const hasLinks = project.links && project.links.length > 0;
+          const linksHtml = hasLinks
+            ? `<div class="showcase-links">${project.links.map((l) => `<a class="showcase-link" href="${l.href}" ${linkAttrs(l.href)}>${l.label}</a>`).join("")}</div>`
+            : "";
+          const inner =
+            project.layout === "media"
+              ? `
+                  <div class="showcase-type">${project.type}</div>
+                  <h3>${project.title}</h3>
+                  <p>${project.summary}</p>
+                  <div class="showcase-media-frame">
+                    ${
+                      project.title === "CityDiaries"
+                        ? `<div class="device-shell monitor-shell"><img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" /><div class="monitor-stand"></div></div>`
+                        : project.title === "Fudget"
+                          ? `<div class="device-shell phone-shell"><img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" /></div>`
+                          : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
+                    }
+                  </div>
+                  <div class="showcase-tool-row">
+                    ${(project.tools || []).map((tool) => `<span class="showcase-tool">${tool}</span>`).join("")}
+                  </div>
+                  ${linksHtml}
+                `
+              : `
+                  <div class="showcase-type">${project.type}</div>
+                  <h3>${project.title}</h3>
+                  <p>${project.summary}</p>
+                  <div class="showcase-stack">${project.stack}</div>
+                  ${linksHtml}
+                `;
+          if (hasLinks) {
+            return `<article class="showcase-card tilt-card ${project.theme}"><div class="showcase-noise"></div>${inner}</article>`;
+          }
+          return `<a class="showcase-card tilt-card ${project.theme}" href="${project.link}" ${linkAttrs(project.link)}><div class="showcase-noise"></div>${inner}</a>`;
+        })
         .join("")}
     </div>
   </section>
