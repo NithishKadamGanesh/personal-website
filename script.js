@@ -353,53 +353,60 @@ app.innerHTML = `
         <div class="eyebrow">Featured</div>
         <h2>What I've built.</h2>
       </div>
-      <p>Three projects that best represent my range: full-stack web, iOS + ML, and a campus-scale puzzle platform.</p>
+      <p>Four projects spanning full-stack web, iOS + ML, infrastructure, and a campus-scale puzzle platform.</p>
     </div>
     <article class="project-spotlight">
       <div class="project-spotlight-eyebrow">${d.arcanumSpotlight.eyebrow}</div>
       <h3>${d.arcanumSpotlight.title}</h3>
       <p>${d.arcanumSpotlight.summary}</p>
     </article>
-    <div class="showcase-grid">
-      ${d.projects
-        .map((project) => {
-          const hasLinks = project.links && project.links.length > 0;
-          const linksHtml = hasLinks
-            ? `<div class="showcase-links">${project.links.map((l) => `<a class="showcase-link" href="${l.href}" ${linkAttrs(l.href)}>${l.label}</a>`).join("")}</div>`
-            : "";
-          const inner =
-            project.layout === "media"
-              ? `
-                  <div class="showcase-type">${project.type}</div>
-                  <h3>${project.title}</h3>
-                  <p>${project.summary}</p>
-                  <div class="showcase-media-frame">
-                    ${
-                      project.title === "CityDiaries"
-                        ? `<div class="device-shell monitor-shell"><img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" /><div class="monitor-stand"></div></div>`
-                        : project.title === "Fudget"
-                          ? `<div class="device-shell phone-shell"><img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" /></div>`
-                          : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
-                    }
-                  </div>
-                  <div class="showcase-tool-row">
-                    ${(project.tools || []).map((tool) => `<span class="showcase-tool">${tool}</span>`).join("")}
-                  </div>
-                  ${linksHtml}
-                `
-              : `
-                  <div class="showcase-type">${project.type}</div>
-                  <h3>${project.title}</h3>
-                  <p>${project.summary}</p>
-                  <div class="showcase-stack">${project.stack}</div>
-                  ${linksHtml}
-                `;
-          if (hasLinks) {
-            return `<article class="showcase-card tilt-card ${project.theme}"><div class="showcase-noise"></div>${inner}</article>`;
-          }
-          return `<a class="showcase-card tilt-card ${project.theme}" href="${project.link}" ${linkAttrs(project.link)}><div class="showcase-noise"></div>${inner}</a>`;
-        })
-        .join("")}
+    <div class="carousel-3d" id="projectCarousel">
+      <div class="carousel-track" id="carouselTrack">
+        ${d.projects
+          .map((project) => {
+            const hasLinks = project.links && project.links.length > 0;
+            const linksHtml = hasLinks
+              ? `<div class="showcase-links">${project.links.map((l) => `<a class="showcase-link" href="${l.href}" ${linkAttrs(l.href)}>${l.label}</a>`).join("")}</div>`
+              : "";
+            const inner =
+              project.layout === "media"
+                ? `
+                    <div class="showcase-type">${project.type}</div>
+                    <h3>${project.title}</h3>
+                    <p>${project.summary}</p>
+                    <div class="showcase-media-frame">
+                      ${
+                        project.title === "CityDiaries"
+                          ? `<div class="device-shell monitor-shell"><img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" /><div class="monitor-stand"></div></div>`
+                          : project.title === "Fudget"
+                            ? `<div class="device-shell phone-shell"><img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" /></div>`
+                            : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
+                      }
+                    </div>
+                    <div class="showcase-tool-row">
+                      ${(project.tools || []).map((tool) => `<span class="showcase-tool">${tool}</span>`).join("")}
+                    </div>
+                    ${linksHtml}
+                  `
+                : `
+                    <div class="showcase-type">${project.type}</div>
+                    <h3>${project.title}</h3>
+                    <p>${project.summary}</p>
+                    <div class="showcase-stack">${project.stack}</div>
+                    ${linksHtml}
+                  `;
+            const card = hasLinks
+              ? `<article class="showcase-card ${project.theme}"><div class="showcase-noise"></div>${inner}</article>`
+              : `<a class="showcase-card ${project.theme}" href="${project.link}" ${linkAttrs(project.link)}><div class="showcase-noise"></div>${inner}</a>`;
+            return `<div class="carousel-item">${card}</div>`;
+          })
+          .join("")}
+      </div>
+      <button class="carousel-btn carousel-prev" aria-label="Previous project">&#8249;</button>
+      <button class="carousel-btn carousel-next" aria-label="Next project">&#8250;</button>
+      <div class="carousel-dots">
+        ${d.projects.map((_, i) => `<button class="carousel-dot${i === 0 ? " active" : ""}" aria-label="Project ${i + 1}"></button>`).join("")}
+      </div>
     </div>
   </section>
 
@@ -900,6 +907,72 @@ document.querySelectorAll(".tilt-card").forEach((card) => {
     card.style.transform = "";
   });
 });
+
+// 3D Carousel
+(function () {
+  const track = document.getElementById("carouselTrack");
+  if (!track) return;
+  const items = [...track.querySelectorAll(".carousel-item")];
+  const N = items.length;
+  let current = 0;
+
+  function getOffset(i) {
+    let d = i - current;
+    if (d > N / 2) d -= N;
+    if (d < -N / 2) d += N;
+    return d;
+  }
+
+  function update() {
+    items.forEach((item, i) => {
+      const d = getOffset(i);
+      const abs = Math.abs(d);
+      const tx = d * 280;
+      const tz = abs === 0 ? 0 : -160;
+      const ry = -d * 52;
+      const scale = abs === 0 ? 1 : 0.78;
+      item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
+      item.style.opacity = abs > 1 ? 0 : 1;
+      item.style.zIndex = 10 - abs;
+    });
+    document.querySelectorAll(".carousel-dot").forEach((dot, i) => {
+      dot.classList.toggle("active", i === current);
+    });
+  }
+
+  function goTo(n) {
+    current = ((n % N) + N) % N;
+    update();
+  }
+
+  document.querySelector(".carousel-prev").addEventListener("click", () => goTo(current - 1));
+  document.querySelector(".carousel-next").addEventListener("click", () => goTo(current + 1));
+  document.querySelectorAll(".carousel-dot").forEach((dot, i) => {
+    dot.addEventListener("click", () => goTo(i));
+  });
+
+  // Click side cards to bring them to front
+  items.forEach((item, i) => {
+    item.addEventListener("click", (e) => {
+      if (getOffset(i) !== 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(i);
+      }
+    }, true);
+  });
+
+  // Drag / swipe
+  let sx = 0;
+  const el = document.getElementById("projectCarousel");
+  el.addEventListener("pointerdown", (e) => { sx = e.clientX; });
+  el.addEventListener("pointerup", (e) => {
+    const d = e.clientX - sx;
+    if (Math.abs(d) > 55) goTo(current + (d < 0 ? 1 : -1));
+  });
+
+  update();
+})();
 
 const cursorGlow = document.querySelector(".cursor-glow");
 window.addEventListener(
