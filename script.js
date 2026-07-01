@@ -925,10 +925,12 @@ document.querySelectorAll(".tilt-card").forEach((card) => {
   }
 
   function update() {
+    const elW = document.getElementById("projectCarousel")?.offsetWidth || 600;
+    const tx = Math.min(elW * 0.3, 320);
     items.forEach((item, i) => {
       const d = getOffset(i);
       const abs = Math.abs(d);
-      item.style.transform = `translateX(${d * 320}px) translateZ(${abs === 0 ? 0 : -180}px) rotateY(${-d * 52}deg) scale(${abs === 0 ? 1 : 0.78})`;
+      item.style.transform = `translateX(${d * tx}px) translateZ(${abs === 0 ? 0 : -160}px) rotateY(${-d * 50}deg) scale(${abs === 0 ? 1 : 0.76})`;
       item.style.opacity = abs > 1 ? 0 : 1;
       item.style.zIndex = 10 - abs;
     });
@@ -961,6 +963,7 @@ document.querySelectorAll(".tilt-card").forEach((card) => {
     if (Math.abs(e.clientX - sx) > 55) goTo(current + (e.clientX < sx ? 1 : -1));
   });
 
+  window.addEventListener("resize", update);
   update();
 })();
 
