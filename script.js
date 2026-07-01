@@ -360,53 +360,52 @@ app.innerHTML = `
       <h3>${d.arcanumSpotlight.title}</h3>
       <p>${d.arcanumSpotlight.summary}</p>
     </article>
-    <div class="carousel-3d" id="projectCarousel">
-      <div class="carousel-track" id="carouselTrack">
-        ${d.projects
-          .map((project) => {
-            const hasLinks = project.links && project.links.length > 0;
-            const linksHtml = hasLinks
-              ? `<div class="showcase-links">${project.links.map((l) => `<a class="showcase-link" href="${l.href}" ${linkAttrs(l.href)}>${l.label}</a>`).join("")}</div>`
-              : "";
-            const inner =
-              project.layout === "media"
-                ? `
-                    <div class="showcase-type">${project.type}</div>
-                    <h3>${project.title}</h3>
-                    <p>${project.summary}</p>
-                    <div class="showcase-media-frame">
-                      ${
-                        project.title === "CityDiaries"
-                          ? `<div class="device-shell monitor-shell"><img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" /><div class="monitor-stand"></div></div>`
-                          : project.title === "Fudget"
-                            ? `<div class="device-shell phone-shell"><img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" /></div>`
-                            : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
-                      }
-                    </div>
-                    <div class="showcase-tool-row">
-                      ${(project.tools || []).map((tool) => `<span class="showcase-tool">${tool}</span>`).join("")}
-                    </div>
-                    ${linksHtml}
-                  `
-                : `
-                    <div class="showcase-type">${project.type}</div>
-                    <h3>${project.title}</h3>
-                    <p>${project.summary}</p>
-                    <div class="showcase-stack">${project.stack}</div>
-                    ${linksHtml}
-                  `;
-            const card = hasLinks
-              ? `<article class="showcase-card ${project.theme}"><div class="showcase-noise"></div>${inner}</article>`
-              : `<a class="showcase-card ${project.theme}" href="${project.link}" ${linkAttrs(project.link)}><div class="showcase-noise"></div>${inner}</a>`;
-            return `<div class="carousel-item">${card}</div>`;
-          })
-          .join("")}
+    <div class="showcase-slider-wrap">
+      <div class="showcase-slider" id="showcaseSlider">
+        <div class="showcase-slide-track" id="slideTrack">
+          ${d.projects
+            .map((project) => {
+              const hasLinks = project.links && project.links.length > 0;
+              const linksHtml = hasLinks
+                ? `<div class="showcase-links">${project.links.map((l) => `<a class="showcase-link" href="${l.href}" ${linkAttrs(l.href)}>${l.label}</a>`).join("")}</div>`
+                : "";
+              const inner =
+                project.layout === "media"
+                  ? `
+                      <div class="showcase-type">${project.type}</div>
+                      <h3>${project.title}</h3>
+                      <p>${project.summary}</p>
+                      <div class="showcase-media-frame">
+                        ${
+                          project.title === "CityDiaries"
+                            ? `<div class="device-shell monitor-shell"><img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" /><div class="monitor-stand"></div></div>`
+                            : project.title === "Fudget"
+                              ? `<div class="device-shell phone-shell"><img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" /></div>`
+                              : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
+                        }
+                      </div>
+                      <div class="showcase-tool-row">
+                        ${(project.tools || []).map((tool) => `<span class="showcase-tool">${tool}</span>`).join("")}
+                      </div>
+                      ${linksHtml}
+                    `
+                  : `
+                      <div class="showcase-type">${project.type}</div>
+                      <h3>${project.title}</h3>
+                      <p>${project.summary}</p>
+                      <div class="showcase-stack">${project.stack}</div>
+                      ${linksHtml}
+                    `;
+              if (hasLinks) {
+                return `<article class="showcase-card tilt-card ${project.theme}"><div class="showcase-noise"></div>${inner}</article>`;
+              }
+              return `<a class="showcase-card tilt-card ${project.theme}" href="${project.link}" ${linkAttrs(project.link)}><div class="showcase-noise"></div>${inner}</a>`;
+            })
+            .join("")}
+        </div>
       </div>
-      <button class="carousel-btn carousel-prev" aria-label="Previous project">&#8249;</button>
-      <button class="carousel-btn carousel-next" aria-label="Next project">&#8250;</button>
-      <div class="carousel-dots">
-        ${d.projects.map((_, i) => `<button class="carousel-dot${i === 0 ? " active" : ""}" aria-label="Project ${i + 1}"></button>`).join("")}
-      </div>
+      <button class="carousel-btn carousel-prev" id="slidePrev" aria-label="Previous project">&#8249;</button>
+      <button class="carousel-btn carousel-next" id="slideNext" aria-label="Next project">&#8250;</button>
     </div>
   </section>
 
@@ -908,70 +907,44 @@ document.querySelectorAll(".tilt-card").forEach((card) => {
   });
 });
 
-// 3D Carousel
+// Project slider
 (function () {
-  const track = document.getElementById("carouselTrack");
-  if (!track) return;
-  const items = [...track.querySelectorAll(".carousel-item")];
-  const N = items.length;
+  const slider = document.getElementById("showcaseSlider");
+  const track = document.getElementById("slideTrack");
+  if (!track || !slider) return;
+  const cards = [...track.querySelectorAll(".showcase-card")];
+  const perPage = 3;
+  const gap = 16;
+  const maxStep = Math.max(0, cards.length - perPage);
   let current = 0;
+  const prev = document.getElementById("slidePrev");
+  const next = document.getElementById("slideNext");
 
-  function getOffset(i) {
-    let d = i - current;
-    if (d > N / 2) d -= N;
-    if (d < -N / 2) d += N;
-    return d;
+  function layout() {
+    const sliderW = slider.offsetWidth;
+    if (sliderW === 0) { requestAnimationFrame(layout); return; }
+    const cardW = (sliderW - gap * (perPage - 1)) / perPage;
+    cards.forEach((c) => { c.style.width = cardW + "px"; });
+    track.style.transition = "none";
+    track.style.transform = `translateX(-${current * (cardW + gap)}px)`;
+    requestAnimationFrame(() => { track.style.transition = ""; });
+    prev.disabled = current <= 0;
+    next.disabled = current >= maxStep;
   }
 
-  function update() {
-    items.forEach((item, i) => {
-      const d = getOffset(i);
-      const abs = Math.abs(d);
-      const tx = d * 340;
-      const tz = abs === 0 ? 0 : -180;
-      const ry = -d * 52;
-      const scale = abs === 0 ? 1 : 0.78;
-      item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
-      item.style.opacity = abs > 1 ? 0 : 1;
-      item.style.zIndex = 10 - abs;
-    });
-    document.querySelectorAll(".carousel-dot").forEach((dot, i) => {
-      dot.classList.toggle("active", i === current);
-    });
+  function slide() {
+    const sliderW = slider.offsetWidth;
+    if (sliderW === 0) return;
+    const cardW = (sliderW - gap * (perPage - 1)) / perPage;
+    track.style.transform = `translateX(-${current * (cardW + gap)}px)`;
+    prev.disabled = current <= 0;
+    next.disabled = current >= maxStep;
   }
 
-  function goTo(n) {
-    current = ((n % N) + N) % N;
-    update();
-  }
-
-  document.querySelector(".carousel-prev").addEventListener("click", () => goTo(current - 1));
-  document.querySelector(".carousel-next").addEventListener("click", () => goTo(current + 1));
-  document.querySelectorAll(".carousel-dot").forEach((dot, i) => {
-    dot.addEventListener("click", () => goTo(i));
-  });
-
-  // Click side cards to bring them to front
-  items.forEach((item, i) => {
-    item.addEventListener("click", (e) => {
-      if (getOffset(i) !== 0) {
-        e.preventDefault();
-        e.stopPropagation();
-        goTo(i);
-      }
-    }, true);
-  });
-
-  // Drag / swipe
-  let sx = 0;
-  const el = document.getElementById("projectCarousel");
-  el.addEventListener("pointerdown", (e) => { sx = e.clientX; });
-  el.addEventListener("pointerup", (e) => {
-    const d = e.clientX - sx;
-    if (Math.abs(d) > 55) goTo(current + (d < 0 ? 1 : -1));
-  });
-
-  update();
+  prev.addEventListener("click", () => { current = Math.max(0, current - 1); slide(); });
+  next.addEventListener("click", () => { current = Math.min(maxStep, current + 1); slide(); });
+  window.addEventListener("resize", layout);
+  layout();
 })();
 
 const cursorGlow = document.querySelector(".cursor-glow");
