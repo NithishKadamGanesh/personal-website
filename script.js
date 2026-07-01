@@ -927,8 +927,8 @@ document.querySelectorAll(".tilt-card").forEach((card) => {
     items.forEach((item, i) => {
       const d = getOffset(i);
       const abs = Math.abs(d);
-      const tx = d * 280;
-      const tz = abs === 0 ? 0 : -160;
+      const tx = d * 340;
+      const tz = abs === 0 ? 0 : -180;
       const ry = -d * 52;
       const scale = abs === 0 ? 1 : 0.78;
       item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
