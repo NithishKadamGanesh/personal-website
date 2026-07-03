@@ -19,7 +19,7 @@ const C = {
 // ═══ AI PROFILE ══════════════════════════════════════════════════════════
 const PROFILE = `You are the Career Digital Twin of Nithish Kadam Kadam Ganesh. Answer in first person as Nithish. Be specific, warm, and confident. Use these facts only — never hallucinate.
 
-IDENTITY: Nithish Kadam Kadam Ganesh | (617) 415-6651 | nithishkadam@outlook.com | Boston, MA
+IDENTITY: Nithish Kadam Kadam Ganesh | (617) 415-6651 | nithishkadamganesh@gmail.com | Boston, MA
 
 EDUCATION: MS Computer Science, Northeastern University (Sep 2024–Aug 2026), Khoury College, GPA 3.93.
 Completed: Programming Design Paradigm (A), Algorithms (A), Foundations of AI (A), Database Management Systems (A), Computer Systems (A).
@@ -87,6 +87,7 @@ const PROJECTS = [
   { name: "HCRIS PDF Pipeline", tagline: "Healthcare reporting for rural health systems", emoji: "🏥", stack: ["Node.js", "TypeScript", "JasperReports", "React Native", "MySQL", "AWS"], impact: "End-to-end PDF reporting pipeline. SQL shaping, Express middleware, in-app PDF preview for healthcare analytics.", color: C.purple, type: "Professional" },
   { name: "CityDiaries", tagline: "A travel diary for every city you visit", emoji: "🗺️", stack: ["Node.js", "Express", "MongoDB", "EJS", "Cloudinary", "CSS"], impact: "Full-stack platform for logging places, writing reviews, and exploring city hotspots. Cloud image storage via Cloudinary.", color: C.amber, type: "Personal" },
   { name: "Fudget", tagline: "AI recipe app from ingredients you have", emoji: "🍳", stack: ["Swift", "iOS", "CreateML", "CoreML", "Spoonacular API"], impact: "Custom ML vision model trained to identify kitchen ingredients from live camera. Hooked into Spoonacular API for tailored recipes.", color: C.orange, type: "Personal" },
+  { name: "WarehouseFlow", tagline: "Scalable real-time WMS order routing", emoji: "📦", stack: ["Go", "Kafka", "Redis", "PostgreSQL", "Docker", "Terraform", "AWS"], impact: "Production-realistic warehouse routing engine validated through seven load-test experiments covering horizontal scaling, failure recovery, contention, partitions, and cold starts.", color: C.teal, type: "Personal" },
 ];
 
 const REFS = [
@@ -153,7 +154,7 @@ const buildTwinReply = (question) => {
   }
 
   if (containsAny(q, ["project", "citydiaries", "fudget", "personal project"])) {
-    return `Two projects I like talking about are CityDiaries and Fudget. CityDiaries is a full-stack travel diary platform I built with Node.js, Express, MongoDB, EJS, and Cloudinary. Fudget is an iOS recipe app I built with Swift and CreateML that identifies ingredients from camera input and suggests recipes using the Spoonacular API.`;
+    return `Three projects I like talking about are WarehouseFlow, CityDiaries, and Fudget. WarehouseFlow is a distributed WMS routing engine with Go, Kafka, Redis, PostgreSQL, Docker, Terraform, and AWS. CityDiaries is a full-stack travel diary platform built with Node.js, Express, MongoDB, EJS, and Cloudinary. Fudget is an iOS recipe app built with Swift and CreateML that identifies ingredients from camera input and suggests recipes using the Spoonacular API.`;
   }
 
   if (containsAny(q, ["skill", "stack", "language", "technology", "tech stack"])) {
@@ -173,7 +174,7 @@ const buildTwinReply = (question) => {
   }
 
   if (containsAny(q, ["contact", "email", "phone", "reach", "linkedin", "github"])) {
-    return `You can reach me at nithishkadam@gmail.com or at (617) 415-6651. I'm also on LinkedIn and GitHub, and both are linked throughout the site.`;
+    return `You can reach me at nithishkadamganesh@gmail.com or at (617) 415-6651. I'm also on LinkedIn and GitHub, and both are linked throughout the site.`;
   }
 
   return `From my background, the shortest answer is that I combine graduate-level CS training with hands-on production experience. I've worked on distributed messaging, backend performance, APIs, healthcare reporting systems, and cloud architecture. If you want, ask me something more specific like my experience at Manhattan Associates, my Northeastern coursework, my AWS certification, or the kinds of roles I'm targeting.`;

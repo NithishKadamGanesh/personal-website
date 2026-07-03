@@ -8,7 +8,7 @@ const siteData = {
     logo: "/Logo.png",
     photo: "/photo.png",
     location: "Boston, MA",
-    email: "nithishkadam@gmail.com",
+    email: "nithishkadamganesh@gmail.com",
     phone: "(617) 415-6651",
     linkedin: "https://www.linkedin.com/in/nithishkadam/",
     github: "https://github.com/NithishKadamGanesh/",
@@ -22,12 +22,6 @@ const siteData = {
     { value: 2, label: "Work awards", decimals: 0 },
     { value: 794, label: "AWS score", decimals: 0 },
   ],
-  arcanumSpotlight: {
-    eyebrow: "Arcanum Highlight",
-    title: "140+ registrations, 90+ active concurrent users, and 12K+ submissions in a 10-hour live puzzle event.",
-    summary:
-      "Built Arcanum as a hosted Northeastern-wide puzzle platform with immersive frontend gameplay, FastAPI backend services, vector-based answer feedback, and a $250 first-place prize pool.",
-  },
   ticker: [
     "Java",
     "Spring Boot",
@@ -57,9 +51,9 @@ const siteData = {
       title: "Arcanum",
       type: "Full-Stack Platform",
       summary:
-        "A university-wide puzzle platform with 140+ registrations, 90+ active concurrent players, and 12K+ answer submissions across a 10-hour event with a $250 first-place prize.",
+        "Built a live campus puzzle CTF platform where players progress through immersive trials, submit answers, unlock hints, climb leaderboards, and get nuanced feedback when they are close.",
       stack: "React - Vite - Tailwind CSS - FastAPI - SQLAlchemy - PostgreSQL",
-      tools: ["FastAPI", "SQLAlchemy", "PostgreSQL", "Sentence Transformers"],
+      tools: ["React", "FastAPI", "PostgreSQL", "Sentence Transformers"],
       theme: "theme-amber",
       layout: "media",
       image: "/arcanum-logo.png",
@@ -69,12 +63,26 @@ const siteData = {
       ],
     },
     {
+      title: "AlphaWealth",
+      type: "Infrastructure / Platform",
+      summary:
+        "Built a self-hosted finance command center for net worth, banking, markets, FIRE progress, portfolio signals, and daily AI briefings in one private operating view.",
+      stack: "React - Java - Python - C++ - Docker",
+      tools: ["Java", "Python", "C++", "React", "Docker"],
+      theme: "theme-cyan",
+      layout: "media",
+      image: "/alphawealth.png",
+      links: [
+        { label: "GitHub", href: "https://github.com/NithishKadamGanesh/AlphaWealth" },
+      ],
+    },
+    {
       title: "CityDiaries",
       type: "Website App",
       summary:
-        "Travel diary app for sharing city hotspots, photos, reviews, comments, and memorable places people want to revisit.",
+        "Built a travel memory app where people save favorite city spots, upload photos, write reviews, comment on places, and revisit trusted recommendations from real trips.",
       stack: "MongoDB - EJS - Express.js - Node.js",
-      tools: ["MongoDB", "EJS", "Express.js", "Node.js"],
+      tools: ["Node.js", "Express", "MongoDB", "Cloudinary"],
       theme: "theme-blue",
       layout: "media",
       image: "/citydiaries.png",
@@ -87,25 +95,28 @@ const siteData = {
       title: "Fudget",
       type: "Mobile App",
       summary:
-        "Recipe recommendation app that recognizes ingredients through ML and turns what you already have into practical cooking suggestions.",
+        "Built a pantry-to-recipe assistant that recognizes ingredients, keeps cooking decisions lightweight, and turns what users already have at home into practical meal ideas.",
       stack: "Swift - CreateML - REST APIs",
-      tools: ["Swift", "CreateML", "REST APIs"],
+      tools: ["Swift", "CreateML", "CoreML", "Spoonacular"],
       theme: "theme-green",
       layout: "media",
       image: "/fudget.png",
-      link: "https://github.com/NithishKadamGanesh/Fudget",
+      links: [
+        { label: "GitHub", href: "https://github.com/NithishKadamGanesh/Fudget" },
+      ],
     },
     {
-      title: "AlphaWealth",
-      type: "Infrastructure / Platform",
+      title: "WarehouseFlow",
+      type: "Distributed Systems",
       summary:
-        "Self-hosted personal finance OS — 14 Docker-composed microservices, React UI, Java/Python/C++ backends, and an on-device GPU AI engine for investment intelligence.",
-      stack: "React - Java - Python - C++ - Docker",
-      tools: ["React", "Java", "Python", "C++", "Docker"],
-      theme: "theme-cyan",
+        "Built a warehouse operations simulator that routes live orders, visualizes warehouse health, injects failures, tracks latency and order flow, and shows how the system degrades without losing correctness.",
+      stack: "Go - Kafka - Redis - PostgreSQL - Docker - Terraform - AWS",
+      tools: ["Go", "Kafka", "Redis", "PostgreSQL", "Terraform"],
+      theme: "theme-violet",
       layout: "media",
+      image: "/warehouseflow.png",
       links: [
-        { label: "GitHub", href: "https://github.com/NithishKadamGanesh/AlphaWealth" },
+        { label: "GitHub", href: "https://github.com/NithishKadamGanesh/warehouseFlow" },
       ],
     },
   ],
@@ -237,6 +248,11 @@ const icons = {
       <path d="M12 2C6.48 2 2 6.6 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.62-3.37-1.2-3.37-1.2-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .08 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.15-4.56-5.12 0-1.13.39-2.06 1.03-2.79-.11-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.06A9.3 9.3 0 0 1 12 6.84c.85 0 1.7.12 2.5.35 1.9-1.34 2.74-1.06 2.74-1.06.55 1.41.21 2.46.1 2.72.64.73 1.03 1.66 1.03 2.79 0 3.98-2.34 4.85-4.57 5.11.36.32.68.94.68 1.89 0 1.36-.01 2.45-.01 2.79 0 .27.18.6.69.49A10.27 10.27 0 0 0 22 12.26C22 6.6 17.52 2 12 2Z" fill="currentColor"/>
     </svg>
   `,
+  external: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 17 17 7m0 0H9m8 0v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `,
 };
 
 const twinReply = (question) => {
@@ -246,7 +262,7 @@ const twinReply = (question) => {
     return "Hi, I'm Nithish. I'm an MS CS student at Northeastern, an ex-Manhattan Associates engineer, AWS Certified, and someone who enjoys building backend systems, full-stack products, and projects you can actually explore on GitHub.";
   }
   if (containsAny(q, ["background", "summary", "career", "github"])) {
-    return "My background combines graduate CS work at Northeastern with production engineering at Manhattan Associates and a full-stack internship at Wintergreen. Projects like CityDiaries, Fudget, and Arcanum show my web, mobile, backend, and interactive product range.";
+    return "My background combines graduate CS work at Northeastern with production engineering at Manhattan Associates and a full-stack internship at Wintergreen. Projects like Arcanum, WarehouseFlow, AlphaWealth, CityDiaries, and Fudget show my distributed systems, full-stack, mobile, backend, and interactive product range.";
   }
   if (containsAny(q, ["northeastern", "education", "gpa", "course", "study"])) {
     return "I'm pursuing an M.S. in Computer Science at Northeastern University with a 3.93 GPA. My coursework includes Algorithms, AI, Database Systems, Computer Systems, NLP, and Scalable Distributed Systems.";
@@ -260,8 +276,8 @@ const twinReply = (question) => {
   if (containsAny(q, ["aws", "certification", "cloud", "architect"])) {
     return "I'm AWS Certified Solutions Architect - Associate, and I scored 794 on the exam. It reflects my interest in secure, resilient, high-performing, and cost-optimized cloud design.";
   }
-  if (containsAny(q, ["project", "citydiaries", "fudget", "arcanum", "pinned", "top projects"])) {
-    return "The three projects I want to feature most are CityDiaries, Fudget, and Arcanum. CityDiaries shows full-stack web development, Fudget highlights iOS and ML experimentation, and Arcanum is a richer full-stack platform with an immersive frontend plus backend support for authentication, submissions, and leaderboard flows.";
+  if (containsAny(q, ["project", "citydiaries", "fudget", "arcanum", "warehouseflow", "warehouse flow", "alphawealth", "pinned", "top projects"])) {
+    return "The featured projects are Arcanum, WarehouseFlow, AlphaWealth, CityDiaries, and Fudget. Arcanum shows full-stack product depth, WarehouseFlow highlights distributed systems resilience, AlphaWealth covers microservice-heavy finance infrastructure, CityDiaries shows full-stack web development, and Fudget highlights iOS plus ML experimentation.";
   }
   if (containsAny(q, ["arcanum", "sentence transformer", "vector", "distance", "puzzle platform", "ctf"])) {
     return "Arcanum is a hosted Northeastern puzzle platform I worked on across both frontend and backend. It handled 140+ registrations, 90+ active concurrent users, and 12K+ submissions in about 10 hours. The frontend used React, Vite, Tailwind CSS, React Router, Axios, and Three.js-style immersive scenes for ten trials, while the backend used FastAPI, SQLAlchemy, Alembic, PostgreSQL, JWT auth, OTP verification, rate limiting, leaderboards, hint systems, and special interaction endpoints. One of the most interesting backend pieces was the answer-feedback layer, which used sentence-transformer embeddings, a vector distance calculator, and RapidFuzz to tell players whether they were very close, warm, or cold when they submitted incorrect answers.";
@@ -282,11 +298,18 @@ const twinReply = (question) => {
     return "I'm on F-1 status with CPT, OPT, and STEM OPT eligibility through July 2029. For long-term US employment, I would need H-1B sponsorship.";
   }
   if (containsAny(q, ["contact", "email", "phone", "linkedin"])) {
-    return "You can reach me at nithishkadam@gmail.com or (617) 415-6651. My LinkedIn, GitHub, and X are all linked on this site.";
+    return "You can reach me at nithishkadamganesh@gmail.com or (617) 415-6651. My LinkedIn, GitHub, and X are all linked on this site.";
   }
 
   return "I combine grad CS training with production engineering experience across backend, mobile, and full-stack work. Ask me about Manhattan Associates, Northeastern, AWS, projects, or the roles I'm looking for.";
 };
+
+const projectLinkIcon = (label) => (label.toLowerCase().includes("github") ? icons.github : icons.external);
+const projectLinkHTML = (link) =>
+  `<a class="showcase-link" href="${link.href}" ${linkAttrs(link.href)} aria-label="${link.label}" title="${link.label}">
+    ${projectLinkIcon(link.label)}
+    <span class="sr-only">${link.label}</span>
+  </a>`;
 
 app.innerHTML = `
   <div class="cursor-glow"></div>
@@ -353,20 +376,15 @@ app.innerHTML = `
         <div class="eyebrow">Featured</div>
         <h2>What I've built.</h2>
       </div>
-      <p>Four projects spanning full-stack web, iOS + ML, infrastructure, and a campus-scale puzzle platform.</p>
+      <p>Five projects spanning full-stack web, iOS + ML, infrastructure, distributed systems, and a campus-scale puzzle platform.</p>
     </div>
-    <article class="project-spotlight">
-      <div class="project-spotlight-eyebrow">${d.arcanumSpotlight.eyebrow}</div>
-      <h3>${d.arcanumSpotlight.title}</h3>
-      <p>${d.arcanumSpotlight.summary}</p>
-    </article>
     <div class="carousel-3d" id="projectCarousel">
       <div class="carousel-track" id="carouselTrack">
         ${d.projects
           .map((project) => {
             const hasLinks = project.links && project.links.length > 0;
             const linksHtml = hasLinks
-              ? `<div class="showcase-links">${project.links.map((l) => `<a class="showcase-link" href="${l.href}" ${linkAttrs(l.href)}>${l.label}</a>`).join("")}</div>`
+              ? `<div class="showcase-links">${project.links.map(projectLinkHTML).join("")}</div>`
               : "";
             const inner =
               project.layout === "media"
@@ -379,6 +397,10 @@ app.innerHTML = `
                       ${
                         project.title === "CityDiaries"
                           ? `<div class="device-shell monitor-shell"><img class="showcase-preview showcase-preview-inline monitor-screen" src="${project.image}" alt="${project.title} preview" /><div class="monitor-stand"></div></div>`
+                          : project.title === "AlphaWealth"
+                            ? `<div class="device-shell dashboard-shell dashboard-shell-light"><img class="showcase-preview showcase-preview-inline dashboard-screen dashboard-screen-light" src="${project.image}" alt="${project.title} preview" /></div>`
+                          : project.title === "WarehouseFlow"
+                            ? `<div class="device-shell dashboard-shell"><img class="showcase-preview showcase-preview-inline dashboard-screen" src="${project.image}" alt="${project.title} preview" /></div>`
                           : project.title === "Fudget"
                             ? `<div class="device-shell phone-shell"><img class="showcase-preview showcase-preview-inline phone-screen" src="${project.image}" alt="${project.title} preview" /></div>`
                             : `<img class="showcase-preview showcase-preview-inline" src="${project.image}" alt="${project.title} preview" />`
@@ -663,12 +685,6 @@ app.innerHTML = `
     </article>
   </div>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <span class="footer-brand">Nithish</span>
-      <span class="footer-copy">© ${new Date().getFullYear()}</span>
-    </div>
-  </footer>
 `;
 
 const typedEl = document.getElementById("typedTarget");
@@ -928,7 +944,7 @@ document.querySelectorAll(".tilt-card").forEach((card) => {
     items.forEach((item, i) => {
       const d = getOffset(i);
       const abs = Math.abs(d);
-      item.style.transform = `translateX(${d * 320}px) translateZ(${abs === 0 ? 0 : -160}px) rotateY(${-d * 50}deg) scale(${abs === 0 ? 1 : 0.76})`;
+      item.style.transform = `translateX(${d * 360}px) translateZ(${abs === 0 ? 0 : -170}px) rotateY(${-d * 50}deg) scale(${abs === 0 ? 1 : 0.74})`;
       item.style.opacity = abs > 1 ? 0 : 1;
       item.style.zIndex = 10 - abs;
     });
