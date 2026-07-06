@@ -7,7 +7,7 @@
   --radius-xl: 34px; --radius-lg: 26px; --radius-md: 20px;
   --max-width: 1440px; --pointer-x: 50vw; --pointer-y: 50vh;
 }
-*{box-sizing:border-box}html{scroll-behavior:smooth}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 body{margin:0;min-height:100vh;color:var(--text);font-family:"Space Grotesk",sans-serif;background:radial-gradient(circle at 15% 20%,rgba(130,243,255,.18),transparent 18%),radial-gradient(circle at 78% 24%,rgba(255,143,216,.14),transparent 18%),radial-gradient(circle at 58% 78%,rgba(155,255,184,.12),transparent 18%),linear-gradient(145deg,#040813 0%,#0a1120 42%,#070d18 100%)}
 a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
