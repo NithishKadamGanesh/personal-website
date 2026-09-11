@@ -59,7 +59,7 @@ const siteData = {
       image: "/arcanum-logo.png",
       links: [
         { label: "GitHub", href: "https://github.com/Arcanum-CTF" },
-        { label: "Live Site", href: "https://arcanumverse.org/" },
+        { label: "Live Site", href: "https://arcanumverse.org/demo" },
       ],
     },
     {
@@ -172,7 +172,7 @@ const siteData = {
   docs: [
     { label: "Resume", href: "/docs/Resume.pdf" },
     { label: "AWS Cert", href: "/docs/AWS%20Certified%20Solutions%20Architect%20-%20Associate.pdf" },
-    { label: "Transcript", href: "/docs/Unofficial_Academic_Transcript%20(1).pdf" },
+    { label: "Transcript", href: "/docs/Unofficial_Academic_transcripts.pdf" },
     { label: "Cover Letter", href: "/docs/CoverLetter.pdf" },
     { label: "Brunda LOR", href: "/docs/Brunda_LOR.pdf" },
     { label: "Maneesh LOR", href: "/docs/Maneesh-LOR.pdf" },
